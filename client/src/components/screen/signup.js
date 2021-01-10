@@ -114,7 +114,7 @@ const Signup = ()=>{
                Sign Up
            </button> 
            <h5>
-               <Link to="/signin">Don't have an account</Link>
+               <Link to="/signin">Already have account</Link>
            </h5>  
         </div>
         </div>
