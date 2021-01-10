@@ -26,7 +26,7 @@ const Routing=()=>{
    }
    else
    {
-     history.push('/sigin')
+     history.push('/signin')
    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])

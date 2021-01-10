@@ -38,3 +38,6 @@ a{
 .material-icons:hover{
   cursor: pointer
 }
+.class:{
+  width: 100%;
+}

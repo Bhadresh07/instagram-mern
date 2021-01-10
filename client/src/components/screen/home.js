@@ -129,10 +129,10 @@ const Home = ()=>{
         <div className="home">
                 {data.map(item=>(
                 <div className="card home-card" key={item._id}>
-                  <h5><Link to={state._id===item.postedBy._id?'/profile':`/profile/${item.postedBy._id}`}>{item.postedBy.name}</Link>{state._id===item.postedBy._id&&
+                  <h5><Link to={state._id===item.postedBy._id?'/profile':`/profile/${item.postedBy._id}`}><img src={item.postedBy.pic} alt={item.postedBy.name} className="circle" style={{height: '24px',position: 'inherit'}}/>{item.postedBy.name}</Link>{state._id===item.postedBy._id&&
                   <i className="material-icons" style={{color:"red",float:"right"}}onClick={()=>{deletePost(item._id)}}>delete</i>}</h5>
                     <div className="card-image">
-                        <img src={item.photo} alt="no photo"/>
+                        <img src={item.photo} alt={item.title}/>
                     </div>
                     <div className="card-content">
                     <i className="material-icons" style={{color:"red"}}>favorite</i>

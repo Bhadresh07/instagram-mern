@@ -81,11 +81,15 @@ router.put("/updatepic",requireLogin,(req,res)=>{
     })
 })
 
-router.get('/getuser',(req,res)=>{
-    User.find()
-    .then(result=>{
-        return res.json(result)
-    })
+router.post('/search-users',requireLogin,(req,res)=>{
+   const query = new RegExp(`^${req.body.query}`)
+   User.find({name:{$regex:query,$options: 'i'}})
+   .then(user=>{
+       return res.json(user)
+   })
+   .catch(err=>{
+       return res.status(422).json({error:err})
+   })
 })
 
 module.exports = router

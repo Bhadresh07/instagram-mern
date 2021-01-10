@@ -1,3 +1,5 @@
+//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
+
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
@@ -36,8 +38,11 @@ router.post('/signup',(req,res)=>{
             pic
         })
         user.save()
-        .then(()=>{
-            res.json({message:"user saved successfully"})
+        .then(
+                res.json({message:"saved successfully"})
+             )
+            .catch(err=>{
+                console.log(err)
         })
         .catch(err=>{
             console.log(err)
@@ -81,7 +86,3 @@ router.post('/signin',(req,res)=>{
 })
 
 module.exports = router
-
-// {
-//     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjkxY2Q3MjMwMmEzNjJjOWI4OTE4MGQiLCJpYXQiOjE2MDYwNjg4MzB9.KyP8j-wN20T8Lz3zk2xXX8Ey1U12ZzymV37UzVNN7p4"
-// }
