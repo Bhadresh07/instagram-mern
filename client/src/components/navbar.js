@@ -21,7 +21,7 @@ const NavBar = ()=>{
           <li key="3"><Link to="/createpost">Createpost</Link></li>,
           <li key="4"><Link to="/followerposts">Followerpost</Link></li>,
           <li key="5">
-            <button className="btn #c62828 red darken-3" onClick={()=>{
+            <button className="btn #c62828 red darken-1" style={{color:'black'}} onClick={()=>{
                localStorage.clear()
                dispatch({type:"CLEAR"})
                history.push('/signin')

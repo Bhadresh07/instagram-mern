@@ -1,5 +1,3 @@
-//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
-
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')

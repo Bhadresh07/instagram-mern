@@ -7,7 +7,7 @@ const UserProfile = ()=>{
     const [profile,setProfile] = useState(null)
     const {state,dispatch} = useContext(UserContext)
     const {id} = useParams()
-    const [follow,setFollow] = useState(state?(state.followers.includes(id)):"0")
+    const [follow,setFollow] = useState((state&&state.following.includes(id)))
     useEffect(()=>{
       fetch(`/profile/${id}`,{
           headers:{
@@ -75,6 +75,19 @@ const UserProfile = ()=>{
            setFollow(false)
        })
     }
+
+    const fetchFollowers=()=>{
+       profile.user.followers.map(item=>(
+           console.log(item)
+       ))
+    }
+    
+    const fetchFollowing=()=>{
+       profile.user.following.map(item=>(
+           console.log(item)
+       ))
+    }
+
     return (
         <>
         {profile&&
@@ -94,14 +107,14 @@ const UserProfile = ()=>{
                     <h4>{profile.user.name}</h4>
                     <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
                         <h6>{profile.post.length} post</h6>
-                        <h6>{profile.user.followers.length} followers</h6>
-                        <h6>{profile.user.following.length} following</h6>
+                        <h6 onClick={()=>fetchFollowers()}>{profile.user.followers.length} followers</h6>
+                        <h6 onClick={()=>fetchFollowing()}>{profile.user.following.length} following</h6>
                     </div>
                     {follow?
-                    <button className="btn waves-effect waves-light" onClick={()=>unfollowuser()}>
-                        Unfollow
+                    <button className="btn waves-effect grey lighten-4" style={{color:'black'}} onClick={()=>unfollowuser()}>
+                        Following
                     </button>:
-                    <button className="btn waves-effect waves-light" onClick={()=>followuser()}>
+                    <button className="btn waves-effect blue lighten-1" style={{color:'black'}} onClick={()=>followuser()}>
                         Follow
                     </button>
                     }  

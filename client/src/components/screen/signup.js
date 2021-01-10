@@ -102,7 +102,7 @@ const Signup = ()=>{
            onChange={(e)=>setPassword(e.target.value)}
            />
            <div className="file-field input-field">
-            <div className="btn">
+            <div className="btn waves-effect blue lighten-1" style={{color:'black'}}>
                 <span>Upload Image</span>
                 <input type="file" onChange={(e)=>setImage(e.target.files[0])}/>
             </div>
@@ -110,7 +110,7 @@ const Signup = ()=>{
                 <input className="file-path validate" type="text"/>
             </div>
             </div>
-           <button className="btn waves-effect waves-light" onClick={()=>PostData()}>
+           <button className="btn waves-effect blue lighten-1" style={{color:'black'}} onClick={()=>PostData()}>
                Sign Up
            </button> 
            <h5>
