@@ -1,22 +1,16 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import {Link,useHistory} from 'react-router-dom'
 import M from 'materialize-css'
+import { UserContext } from '../../App'
 
-const Signup = ()=>{
+const EditProfile = ()=>{
+    const {state, dispatch} = useContext(UserContext)
     const history = useHistory()
-    const [name,setName] = useState("")
-    const [password,setPassword] = useState("")
-    const [email,setEmail] = useState("")
+    const [name,setName] = useState(state&&state.name)
+    const [email,setEmail] = useState(state&&state.email)
     const [image,setImage] = useState("")
-    const [url,setUrl] = useState(undefined)
+    const [url,setUrl] = useState(state&&state.pic)
     
-    useEffect(()=>{
-      if(url)
-      {
-        uploadPic()  
-      }
-    },[url])
-
     const uploadPic = ()=>{
        const data = new FormData()
         data.append("file",image)
@@ -31,8 +25,12 @@ const Signup = ()=>{
         .then(data=>{
            setUrl(data.url)
         })
-        .then(
-           uploadFields() 
+        .then(()=>{
+          if(url!==(state&&state.pic))
+          {
+           uploadFields()
+          }
+         }
         )
         .catch(err=>{
             console.log(err)
@@ -45,14 +43,14 @@ const Signup = ()=>{
        M.toast({html:"invalid email",classes:"#ff8a80 red accent-1"})  
        return 
      }
-        fetch("/signup",{
-            method:"post",
+        fetch("/editprofile",{
+            method:"put",
             headers:{
+                "Authorization":`Bearer ${localStorage.getItem("jwt")}`,
                 "Content-Type":"application/json"
             },
             body:JSON.stringify({
                 name,
-                password,
                 email,
                 pic:url
             })
@@ -62,8 +60,9 @@ const Signup = ()=>{
                     M.toast({html:data.error,classes:"#ff8a80 red accent-1"})
                 }
                 else{
-                    M.toast({html:data.message,classes:"#81c784 green lighten-2"})
-                    history.push('/signin')
+                    M.toast({html:"edited profile successfully",classes:"#81c784 green lighten-2"})
+                    dispatch({type:"UPDATEPROFILE",payload:data})
+                    history.push('/profile')
                 }
                 console.log(data)
         }).catch(error=>{
@@ -74,18 +73,31 @@ const Signup = ()=>{
     const PostData=()=>{
         if(image)
         {
-          uploadPic()  
+          uploadPic()
+          console.log("image posted")
         }
         else
         {
-          uploadFields()  
-        } 
+          uploadFields()
+        }   
     }
 
     return (
         <div className="mycard">
         <div className="card auth-card">
           <h2>Instagram</h2>
+          <div>
+            <img style={{width:"160px",height:"160px",borderRadius:"80px"}} src={state&&state.pic} alt="im"/>
+          </div>
+          <div className="file-field input-field">
+            <div className="btn waves-effect blue lighten-1" style={{color:'black'}}>
+                <span>Upload Image</span>
+                <input type="file" onChange={(e)=>setImage(e.target.files[0])}/>
+            </div>
+            <div className="file-path-wrapper">
+                <input className="file-path validate" type="text"/>
+            </div>
+          </div>
           <input
            type="text"
            placeholder="name"
@@ -98,30 +110,12 @@ const Signup = ()=>{
            value={email}
            onChange={(e)=>setEmail(e.target.value)}
            />
-           <input
-           type="password"
-           placeholder="password"
-           value={password}
-           onChange={(e)=>setPassword(e.target.value)}
-           />
-           <div className="file-field input-field">
-            <div className="btn waves-effect blue lighten-1" style={{color:'black'}}>
-                <span>Upload Image</span>
-                <input type="file" onChange={(e)=>setImage(e.target.files[0])}/>
-            </div>
-            <div className="file-path-wrapper">
-                <input className="file-path validate" type="text"/>
-            </div>
-            </div>
            <button className="btn waves-effect blue lighten-1" style={{color:'black'}} onClick={()=>PostData()}>
-               Sign Up
-           </button> 
-           <h5>
-               <Link to="/signin">Already have account</Link>
-           </h5>  
+               Edit Profile
+           </button>  
         </div>
         </div>
     )
 }
 
-export default Signup
+export default EditProfile

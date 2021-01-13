@@ -9,8 +9,9 @@ import Signup from './components/screen/signup'
 import CreatePost from './components/screen/CreatePost'
 import UserProfile from './components/screen/userProfile'
 import FollowerPost from './components/screen/FollowerPost'
+import EditProfile from './components/screen/EditProfile'
 
-import { reducer,initialState } from './reducer/userReducer';
+import { reducer,initialState } from './reducer/userReducer'
 
 export const UserContext = createContext()
 
@@ -52,6 +53,9 @@ const Routing=()=>{
       </Route>
       <Route path="/followerposts">
        <FollowerPost/>
+      </Route>
+      <Route path="/editprofile">
+        <EditProfile/>
       </Route>
     </Switch>
   )

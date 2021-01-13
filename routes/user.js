@@ -92,4 +92,22 @@ router.post('/search-users',requireLogin,(req,res)=>{
    })
 })
 
+router.put('/editprofile',requireLogin,(req,res)=>{
+  console.log(req.body.pic)  
+  User.findByIdAndUpdate(req.user._id,{
+      $set:{
+          name:req.body.name,
+          email:req.body.email,
+          pic:req.body.pic
+        }
+        },
+      {new:true}
+  ).select("-password")
+  .then(result=>{
+        return res.json(result)
+    })
+    .catch(err=>{
+        return res.status(422).json({error:err})
+    })   
+})
 module.exports = router

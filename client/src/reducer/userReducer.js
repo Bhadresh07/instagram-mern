@@ -13,11 +13,13 @@ export const reducer=(state,action)=>{
           following:action.payload.following
        }
     }
-    if(action.type==="UPDATEPIC")
+    if(action.type==="UPDATEPROFILE")
     {
        return {
           ...state,
-          pic:action.payload
+          pic:action.payload.pic,
+          name:action.payload.name,
+          email:action.payload.email
        }
     }
     if(action.type==="CLEAR")
