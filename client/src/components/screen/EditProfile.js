@@ -8,9 +8,16 @@ const EditProfile = ()=>{
     const history = useHistory()
     const [name,setName] = useState(state&&state.name)
     const [email,setEmail] = useState(state&&state.email)
-    const [image,setImage] = useState("")
+    const [image,setImage] = useState(state&&state.pic)
     const [url,setUrl] = useState(state&&state.pic)
     
+    // useEffect(()=>{
+    //   if(url)
+    //   {
+    //     uploadFields()  
+    //   }
+    // },[url])
+
     const uploadPic = ()=>{
        const data = new FormData()
         data.append("file",image)
@@ -62,6 +69,7 @@ const EditProfile = ()=>{
                 else{
                     M.toast({html:"edited profile successfully",classes:"#81c784 green lighten-2"})
                     dispatch({type:"UPDATEPROFILE",payload:data})
+                    localStorage.setItem("user",JSON.stringify(data))
                     history.push('/profile')
                 }
                 console.log(data)
@@ -74,11 +82,9 @@ const EditProfile = ()=>{
         if(image)
         {
           uploadPic()
-          console.log("image posted")
         }
-        else
-        {
-          uploadFields()
+        else{
+         uploadFields()
         }   
     }
 
@@ -92,7 +98,7 @@ const EditProfile = ()=>{
           <div className="file-field input-field">
             <div className="btn waves-effect blue lighten-1" style={{color:'black'}}>
                 <span>Upload Image</span>
-                <input type="file" onChange={(e)=>setImage(e.target.files[0])}/>
+                <input type="file" onChange={(e)=>{setImage(e.target.files[0])}}/>
             </div>
             <div className="file-path-wrapper">
                 <input className="file-path validate" type="text"/>
