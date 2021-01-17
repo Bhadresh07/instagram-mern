@@ -44,11 +44,11 @@ const Profile = ()=>{
                 </div>    
                 </div>
             </div>
-            
+            <Link to='/editprofile'>
             <div className="btn waves-effect blue lighten-1" style={{color:'black',margin:"10px",marginLeft:"295px"}}>
-                <Link to='/editprofile'><span>edit profile</span></Link>
-                
+                edit profile
             </div>
+            </Link>
            </div>  
             <div className="gallery">
                 {

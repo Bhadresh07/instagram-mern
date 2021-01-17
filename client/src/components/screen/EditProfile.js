@@ -11,15 +11,15 @@ const EditProfile = ()=>{
     const [image,setImage] = useState(state&&state.pic)
     const [url,setUrl] = useState(state&&state.pic)
     
-    // useEffect(()=>{
-    //   if(url)
-    //   {
-    //     uploadFields()  
-    //   }
-    // },[url])
+    useEffect(()=>{
+      if(url!==state&&state.pic)
+      {
+         setUrl(url)  
+      }
+    },[url])
 
     const uploadPic = ()=>{
-       const data = new FormData()
+        const data = new FormData()
         data.append("file",image)
         data.append("upload_preset","insta-clone")
         data.append("cloud_name","doehzrtdh")
